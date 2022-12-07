@@ -1,7 +1,7 @@
-name: "Michelle Flesaker"                                # CHANGE HERE 
+name: "Suicide Outcomes Prediction Site"                                # CHANGE HERE 
 output_dir: "."
 navbar:
-  title: "Michelle Flesaker"                             # CHANGE HERE 
+  title: "Home"                             # CHANGE HERE 
   type: inverse
   left:
     - text: "Home"
@@ -19,5 +19,5 @@ navbar:
       href: https://github.com/mflesaker       # CHANGE HERE 
 output:
   html_document:
-    theme: minimal
+    theme: yeti
     highlight: textmate
