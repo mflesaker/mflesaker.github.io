@@ -1,8 +1,5 @@
 ---
-title: "Welcome to my website!"
-layout: default
+title: "Welcome to my website!"   
+theme: "paper"
 ---
 
-You're up and running!
-
-hello!

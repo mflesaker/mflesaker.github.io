@@ -1,7 +1,7 @@
-name: "YOURNAME"                                # CHANGE HERE 
+name: "Michelle Flesaker"                                # CHANGE HERE 
 output_dir: "."
 navbar:
-  title: "YOURNAME"                             # CHANGE HERE 
+  title: "Michelle Flesaker"                             # CHANGE HERE 
   type: inverse
   left:
     - text: "Home"
@@ -19,5 +19,5 @@ navbar:
       href: https://github.com/mflesaker       # CHANGE HERE 
 output:
   html_document:
-    theme: cosmo
+    theme: minimal
     highlight: textmate
