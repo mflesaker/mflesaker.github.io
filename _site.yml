@@ -21,3 +21,4 @@ output:
   html_document:
     theme: yeti
     highlight: textmate
+    url: "https://mflesaker.github.io"
