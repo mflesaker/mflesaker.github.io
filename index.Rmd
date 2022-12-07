@@ -1,5 +1,6 @@
 ---
 title: "Welcome to my website!"
+layout: default
 ---
 
 You're up and running!
