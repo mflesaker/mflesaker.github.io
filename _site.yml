@@ -2,7 +2,6 @@ name: "Suicide Outcomes Prediction Site"                                # CHANGE
 output_dir: "."
 navbar:
   title: "Home"                             # CHANGE HERE 
-  type: inverse
   left:
     - text: "Home"
       icon: fa-home
@@ -22,4 +21,3 @@ output:
   html_document:
     theme: yeti
     highlight: textmate
-    url: "https://mflesaker.github.io"
