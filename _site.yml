@@ -16,7 +16,8 @@ navbar:
       href: mailto:mflesaker@hsph.harvard.edu                    # CHANGE HERE 
     - text: "GitHub"
       icon: fa-github
-      href: https://github.com/mflesaker       # CHANGE HERE 
+      href: https://github.com/mflesaker      
+  href: mflesaker.github.io 
 output:
   html_document:
     theme: yeti
