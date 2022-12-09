@@ -230,7 +230,7 @@ ggplotly(my_plot_3)
 
 ## Regression Analysis
 
-The initial linear model, which looked at the relationship between years of potential life lost to suicide and opioid dispensing rate, unemployment rate, year and county, had an R2 of 0.34 and an adjusted R2 of 0.28. This is a relatively low R2 value. The main predictors of suicide rate appear to be year and county.
+The initial linear model, which looked at the relationship between years of potential life lost to suicide and opioid dispensing rate, unemployment rate, year and county, had an $R^2$ of 0.34 and an adjusted $R^2$ of 0.28. This is a relatively low $R^2$ value. The main predictors of suicide rate appear to be year and county.
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 library(jtools)
@@ -266,5 +266,4 @@ my_plot_4 <- train_data %>%
 ggplotly(my_plot_4)
 ```
 
-
-
+Final predictions were on average 118.63 years (RMSE = 118.63) away from the real 2020 data. This is a large error and indicates that our covariates had limited prediction power.
