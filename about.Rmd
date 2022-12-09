@@ -6,7 +6,7 @@ title: "Data Analysis"
 
 The most notable finding from the exploratory data analysis phase was that suicide rates have been going up over time on average across all counties in Massachusetts.
 
-```{r echo = FALSE, message = FALSE, warning = FALSE, fig.width = 10}
+```{r echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
 library(tidyverse)
 
 library(tidyverse)
@@ -43,6 +43,70 @@ train_data <- suicide_data %>%
   distinct_all() %>%
   filter(county != "Nantucket")
 
+library(htmltools)
+library(rvest)
+
+get_opioid_data <- function(year) {
+  raw_1 <- read_html(paste0("https://www.cdc.gov/drugoverdose/rxrate-maps/county", year, ".html"))
+  raw_1_data <- raw_1 |> html_nodes("table")
+  tab <- raw_1_data[[1]] |> html_table()
+  names(tab) <- c("County", "State", "County FIPS Code", "Opioid Dispensing Rate per 100")
+  tab <- tab %>%
+    filter(State == "MA") %>%
+    mutate(Year = year) %>%
+    mutate(County = str_replace_all(County, ", MA", ""))
+  return(tab)
+} 
+
+for (i in 2006:2016) {
+  my_data <- get_opioid_data(i)
+  assign(paste0("opioid", i), my_data)
+}
+
+## 2017
+raw_1 <- read_html(paste0("https://www.cdc.gov/drugoverdose/rxrate-maps/county2017.html"))
+raw_1_data <- raw_1 |> html_nodes("table")
+tab <- raw_1_data[[1]] |> html_table()
+opioid2017 <- tab %>%
+  filter(State == "MA") %>%
+  mutate(Year = 2017) %>%
+  mutate(County = str_replace_all(County, ", MA", "")) %>%
+  mutate(County = str_to_title(County)) %>%
+  select(County, State, `County FIPS Code`, `Opioid Dispensing Rate per 100`, Year)
+
+## 2018
+raw_1 <- read_html(paste0("https://www.cdc.gov/drugoverdose/rxrate-maps/county2018.html"))
+raw_1_data <- raw_1 |> html_nodes("table")
+tab <- raw_1_data[[1]] |> html_table()
+opioid2018 <- tab %>%
+  filter(State == "MA") %>%
+  mutate(Year = 2018) %>%
+  mutate(County = str_replace_all(County, ", MA", "")) %>%
+  mutate(County = str_to_title(County)) %>%
+  select(County, State, `County FIPS Code`, `Opioid Dispensing Rate per 100`, Year)
+
+## 2019
+raw_1 <- read_html(paste0("https://www.cdc.gov/drugoverdose/rxrate-maps/county2019.html"))
+raw_1_data <- raw_1 |> html_nodes("table")
+tab <- raw_1_data[[1]] |> html_table()
+opioid2019 <- tab %>%
+  filter(State == "MA") %>%
+  mutate(Year = 2019) %>%
+  mutate(County = str_replace_all(County, " County", "")) %>%
+  select(County, State, `County FIPS Code`, `Opioid Dispensing Rate per 100`, Year)
+
+opioid_data <- rbind(opioid2006, opioid2007, opioid2008, opioid2009, opioid2010, opioid2011, opioid2012, opioid2013, opioid2014, opioid2015, opioid2016, opioid2017, opioid2018, opioid2019) %>%
+  select(County, Year, `Opioid Dispensing Rate per 100`) %>%
+  rename(county = County) %>%
+  rename(year = Year) %>%
+  rename(opioid_dispensing_rate_per_100 = `Opioid Dispensing Rate per 100`) %>%
+  filter(county != "")
+
+train_data <- train_data %>%
+  filter(year >= 2006) %>%
+  left_join(opioid_data, by = c("county", "year")) %>%
+  mutate(opioid_dispensing_rate_per_100 = as.numeric(opioid_dispensing_rate_per_100))
+
 library(plotly)
 
 my_graph <- train_data %>%
@@ -58,6 +122,35 @@ my_graph <- train_data %>%
 ggplotly(my_graph)
 ```
 
+Additionally, we see that neither unemployment rates nor opioid dispensing rates show a strong or significant bivariate relationship with suicide rates by county. 
+
+```{r echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+my_plot_2 <- train_data %>%
+  ggplot(aes(x = unemployment_rate, y = ypll_age_adjusted_rate)) +
+  geom_point(aes(color = county)) +
+  geom_smooth() +
+  theme_minimal() +
+  scale_x_continuous("Unemployment Rate") +
+  scale_y_continuous("YPLL Age-Adjusted Rate") +
+  scale_color_discrete("County") +
+  ggtitle("Unemployment Rate vs. Years of Potential Life Lost to Suicide")
+
+ggplotly(my_plot_2)
+```
+
+```{r echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+my_plot_3 <- train_data %>%
+  ggplot(aes(x = opioid_dispensing_rate_per_100, y = ypll_age_adjusted_rate)) +
+  geom_point(aes(color = county)) +
+  geom_smooth() +
+  theme_minimal() +
+  scale_x_continuous("Opioid Dispensing Rate Per 100") +
+  scale_y_continuous("YPLL Age-Adjusted Rate") +
+  scale_color_discrete("County") +
+  ggtitle("Opioid Dispensing Rate vs. Years of Potential Life Lost to Suicide")
+
+ggplotly(my_plot_3)
+```
 
 ## Regression Analysis
 
