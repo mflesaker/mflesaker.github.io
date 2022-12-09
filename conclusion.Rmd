@@ -1,0 +1,7 @@
+---
+title: "Conclusion"
+---
+
+Final models had limited power to predict suicide rates in 2020. However, while the predictions were not entirely accurate, the linear model provides some insights that may be helpful for future public health interventions. For example, suicide rates vary dramatically by county. Thus, suicide prevention interventions should target those counties, such as Barnstable and Berkshire, that have higher suicide rates on average. Additionally, suicide rates have been going up year after year. Thus, suicide is a critical and worsening public health problem that must be addressed. 
+
+Future analysis should make more use of additional variables, such as detailed demographic data from the census and American Community Survey. Additionally, to predict 2020-2024 data accurately, there should be some additional considerations of the effects of COVID-19 on suicide rates throughout the nation which would then be applied to this project’s model. 

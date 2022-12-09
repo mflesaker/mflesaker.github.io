@@ -7,8 +7,9 @@ navbar:
       icon: fa-home
       href: index.html
     - text: "Data Analysis"
-      icon: fa-user 
       href: about.html 
+    - text: "Conclusion"
+      href: conclusion.html
   right:
     - text: "Contact me"
       icon: fa-envelope-o
