@@ -1,6 +1,5 @@
 ---
-title: "Introduction!"   
-layout: default
+title: "Introduction!"
 ---
 
 Suicide is a major cause of death in Massachusetts: in 2019, 8.7 individuals per 100,000 died of suicide (CDC, 2022). As such, it is critical to understand what factors lead to suicide deaths and then to predict them by locality, so that public health efforts can best target interventions that reduce this tragic loss. In this project, I aimed to use injury-related data to predict 2020 suicide rates in the state of Massachusetts by county. Covariates in the model included opioid dispensing data, year, county, and unemployment data. 

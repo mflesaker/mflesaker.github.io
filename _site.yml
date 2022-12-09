@@ -7,7 +7,7 @@ navbar:
       icon: fa-home
       href: index.html
     - text: "Data Analysis"
-      href: about.html 
+      href: data_analysis.html 
     - text: "Conclusion"
       href: conclusion.html
   right:
