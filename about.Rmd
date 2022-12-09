@@ -6,9 +6,7 @@ title: "Data Analysis"
 
 The most notable finding from the exploratory data analysis phase was that suicide rates have been going up over time on average across all counties in Massachusetts.
 
-```{r echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
-library(tidyverse)
-
+```{r echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8, fig.height = 6, results = 'hide'}
 library(tidyverse)
 raw_unemployment <- read_csv("mass_unemployment_data_by_county.csv") 
 
@@ -25,7 +23,7 @@ unemployment <- raw_unemployment %>%
   rename(year = Year) %>%
   rename(unemployment_rate = year_unemployment_rate)
 
-for (i in 2001:2019) {
+for (i in 2001:2020) {
   data <- read_csv(paste0(i, "_suicide.csv")) %>%
     mutate(year = i)
   assign(paste0("suicide", i), data)
@@ -107,6 +105,84 @@ train_data <- train_data %>%
   left_join(opioid_data, by = c("county", "year")) %>%
   mutate(opioid_dispensing_rate_per_100 = as.numeric(opioid_dispensing_rate_per_100))
 
+basic_model_on_train_data <- lm(train_data$ypll_age_adjusted_rate ~ train_data$unemployment_rate + train_data$year + train_data$opioid_dispensing_rate_per_100 + train_data$county)
+summary(basic_model_on_train_data)
+ ## https://cran.r-project.org/web/packages/jtools/vignettes/summ.html
+basic_model_on_train_data %>%
+  jtools::summ()
+
+library(caret)
+
+x <- train_data %>%
+  mutate(county = as.factor(county)) %>%
+  mutate(year = as.numeric(year)) %>%
+  mutate(unemployment_rate = as.numeric(unemployment_rate)) %>%
+  mutate(opioid_dispensing_rate_per_100 = as.numeric(opioid_dispensing_rate_per_100)) %>%
+  select(year, county, unemployment_rate, opioid_dispensing_rate_per_100)
+
+y <- as.numeric(train_data$ypll_age_adjusted_rate)
+
+set.seed(1999)
+
+control <- trainControl(method = "cv", number = 10, p = .9) 
+grid <- data.frame(mtry = c(1:10))  
+train_rf <-  train(x, y,  
+                   method = "rf",  
+                   ntree = 15, 
+                   trControl = control, 
+                   tuneGrid = grid, 
+                   nSamp = 10000)
+
+fit_rf <- randomForest::randomForest(x, y,  
+                       mtry = train_rf$bestTune$mtry,
+                       ntree = 15)
+
+train_lm <-  train(x, y,  
+                   method = "lm", 
+                   trControl = control)
+
+train_rf
+
+opioid2020 <- read_csv("2020_opioid.csv")
+
+test_data <- unemployment %>%
+  filter(year == 2020) %>%
+  inner_join(opioid2020, by = c("county", "year"))
+
+train_data_counties <- train_data %>%
+  select(county) %>%
+  distinct(county)
+
+test_data <- test_data %>%
+  inner_join(train_data_counties, by = c("county")) %>%
+  ungroup() %>%
+  mutate(county = as.factor(county)) %>%
+  mutate(year = as.numeric(year)) %>%
+  mutate(unemployment_rate = as.numeric(unemployment_rate)) %>%
+  mutate(opioid_dispensing_rate_per_100 = as.numeric(opioid_dispensing_rate_per_100)) %>%
+  select(year, county, unemployment_rate, opioid_dispensing_rate_per_100)
+
+y_hat_rf <- predict(fit_rf, test_data) %>%
+  tibble()
+
+final_predictions <- unemployment %>%
+  distinct(county) %>%
+  arrange(county) %>%
+  mutate(year = 2020) %>%
+  filter(county != "Nantucket") %>%
+  cbind(y_hat_rf)
+
+colnames(final_predictions) <- c("county", "year", "ypll_age_adjusted_rate")
+
+real_vs_predicted_data <- suicide2020 %>%
+  select(-`State Name`) %>%
+  rename(county = `County Name`) %>%
+  filter(!(is.na(county))) %>%
+  select(county, `YPLL Age-Adjusted Rate`) %>%
+  rename(real_adjusted_rate = `YPLL Age-Adjusted Rate`) %>%
+  filter(county != "Nantucket") %>%
+  cbind(y_hat_rf)
+
 library(plotly)
 
 my_graph <- train_data %>%
@@ -124,7 +200,7 @@ ggplotly(my_graph)
 
 Additionally, we see that neither unemployment rates nor opioid dispensing rates show a strong or significant bivariate relationship with suicide rates by county. 
 
-```{r echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+```{r echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8, fig.height = 6}
 my_plot_2 <- train_data %>%
   ggplot(aes(x = unemployment_rate, y = ypll_age_adjusted_rate)) +
   geom_point(aes(color = county)) +
@@ -138,7 +214,7 @@ my_plot_2 <- train_data %>%
 ggplotly(my_plot_2)
 ```
 
-```{r echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8}
+```{r echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8, fig.height = 6}
 my_plot_3 <- train_data %>%
   ggplot(aes(x = opioid_dispensing_rate_per_100, y = ypll_age_adjusted_rate)) +
   geom_point(aes(color = county)) +
@@ -154,7 +230,41 @@ ggplotly(my_plot_3)
 
 ## Regression Analysis
 
+The initial linear model, which looked at the relationship between years of potential life lost to suicide and opioid dispensing rate, unemployment rate, year and county, had an R2 of 0.34 and an adjusted R2 of 0.28. This is a relatively low R2 value. The main predictors of suicide rate appear to be year and county.
 
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+library(jtools)
+library(sjPlot)
+library(sjmisc)
+library(sjlabelled)
+
+basic_model_on_train_data <- lm(ypll_age_adjusted_rate ~ unemployment_rate + year + opioid_dispensing_rate_per_100 + county, data = train_data)
+
+ ## https://cran.r-project.org/web/packages/jtools/vignettes/summ.html
+  basic_model_on_train_data %>%
+    tab_model()
+```
 
 ## Prediction
+
+Finally, I attempted both linear and random forest models with 10-fold cross validation to predict suicide rates using the same covariates employed in the model. Final predictions are displayed to the right of the black line. 
+
+```{r echo = FALSE, message = FALSE, warning = FALSE, fig.width = 8, fig.height = 6}
+my_plot_4 <- train_data %>%
+  select(county, ypll_age_adjusted_rate, year) %>%
+  rbind(final_predictions) %>%
+  mutate(alpha_ = ifelse(year == 2020, 0, 1)) %>%
+  ggplot(aes(x = year, y = ypll_age_adjusted_rate, color = county, alpha = alpha_)) +
+  geom_point() +
+  scale_alpha_binned(range = c(0.25,1)) +
+  geom_vline(xintercept = 2019.5) +
+    scale_x_continuous("Year", breaks = c(2001, 2005, 2010, 2015, 2020)) +
+  scale_y_continuous("YPLL to Suicide\nAge-Adjusted Rate") +
+  scale_color_discrete("County") +
+  ggtitle("Year vs. Years of Potential Life Lost to Suicide (YPLL)")
+
+ggplotly(my_plot_4)
+```
+
+
 
