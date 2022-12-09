@@ -1,0 +1,18 @@
+State Name,County Name,County FIPS,Population,Deaths,Crude Rate,Age Adjusted Rate,YPLL,YPLL Crude Rate,YPLL Age-Adjusted Rate,appliedFilters
+MA,Barnstable,1,,43,20.11,18.77,615,414.08,435.82,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2018 - 2018, All Ages"
+MA,Berkshire,3,,15****,11.89**,11.18**,250,258.23,268.57,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2018 - 2018, All Ages"
+MA,Bristol,5,,79,13.99,13.72,1484,316.22,330.95,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2018 - 2018, All Ages"
+MA,Dukes,7,,--,--,--,.,.,368.72,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2018 - 2018, All Ages"
+MA,Essex,9,,75,9.51,9.09,1417,216.52,224.27,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2018 - 2018, All Ages"
+MA,Franklin,11,,--,--,--,.,.,219.16,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2018 - 2018, All Ages"
+MA,Hampden,13,,68,14.53,14.47,1363,350.20,366.28,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2018 - 2018, All Ages"
+MA,Hampshire,15,,14****,8.69**,8.15**,218,163.50,179.30,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2018 - 2018, All Ages"
+MA,Middlesex,17,,152,9.45,8.43,2709,198.75,189.59,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2018 - 2018, All Ages"
+MA,Nantucket,19,,--,--,--,.,.,125.16,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2018 - 2018, All Ages"
+MA,Norfolk,21,,75,10.66,9.85,1463,250.06,252.08,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2018 - 2018, All Ages"
+MA,Plymouth,23,,61,11.76,11.00,974,229.17,245.86,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2018 - 2018, All Ages"
+MA,Suffolk,25,,62,7.71,7.27,1262,178.36,152.89,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2018 - 2018, All Ages"
+MA,Worcester,27,,84,10.14,9.54,1781,254.70,256.76,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2018 - 2018, All Ages"
+"** indicates Unstable values, -- indicates Suppressed values, --* indicates Secondary Suppression
+§ County data for years prior to 2008 were mapped to vintage 2008 census definitions where possible. 
+Records without a county name are not able to be mapped, but are included in the tabular data view. Read More at 'https://www.cdc.gov/injury/wisqars/fatal_help/fatal_dataviz.html#county",,,,,,,,,,

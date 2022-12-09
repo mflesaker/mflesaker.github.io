@@ -1,7 +1,67 @@
 ---
-title: "About me"
+title: "Data Analysis"
 ---
 
-## Header
+## Exploratory Data Analysis
 
-Say more about you here. 
+The most notable finding from the exploratory data analysis phase was that suicide rates have been going up over time on average across all counties in Massachusetts.
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+library(tidyverse)
+
+library(tidyverse)
+raw_unemployment <- read_csv("mass_unemployment_data_by_county.csv") 
+
+unemployment <- raw_unemployment %>%
+  group_by(Area, Year) %>%
+  summarize(
+    year_unemployment_rate = mean(`Area Rate`)
+  ) %>%
+  mutate(Area = str_remove_all(Area, "\\s*\\w*$")) %>%
+  select(Area, Year, year_unemployment_rate) %>%
+  filter(!(Area %in% c("The Federal Government reserves a paid-up, nonexclusive and irrevocable license to reproduce, publish or otherwise use, and to authorize others to use for federal purposes: i) the copyright in all products developed under the grant, including a subgrant or contract under the grant or subgrant; and ii) any rights of copyright to which the recipient, subrecipient or a contractor purchases ownership under an award (including but not limited to curricula, training models, technical assistance products, and any related materials). Such uses include, but are not limited to, the right to modify and distribute such products worldwide by any means, electronically or otherwise. Federal funds may not be used to pay any royalty or license fee for use of a copyrighted work, or the cost of acquiring by purchase a copyright in a work, where the Department has a license or rights of free use in such work, although they may be used to pay costs for obtaining a copy which is limited to the developer/seller costs of copying and shipping. If revenues are generated through selling products developed with grant funds, including intellectual property, these revenues are program income. Program income must be used in accordance with the provisions of this grant award and 2 CFR 200.307.", "The labor force estimates for towns with 2010 Census population of less than 1,000 were produced using the BLS methodology, but are not official BLS estimates.", "This workforce product was funded by a grant awarded by the U.S. Department of Labor's Employment and Training Administration. The product was created by the recipient and does not necessarily reflect the official position of the U.S. Department of Labor. The Department of Labor makes no guarantees, warranties, or assurances of any kind, express or implied, with respect to such information, including any information on linked sites and including, but not limited to, accuracy of the information or its completeness, timeliness, usefulness, adequacy, continued availability, or ownership. This product is copyrighted by the institution that created it. Internal use by an organization and/or personal use by an individual for non-commercial purposes is permissible. All other uses require the prior authorization of the copyright owner."))) %>%
+  mutate(Area = str_to_title(Area)) %>%
+  rename(county = Area) %>%
+  rename(year = Year) %>%
+  rename(unemployment_rate = year_unemployment_rate)
+
+for (i in 2001:2019) {
+  data <- read_csv(paste0(i, "_suicide.csv")) %>%
+    mutate(year = i)
+  assign(paste0("suicide", i), data)
+}
+
+suicide_data <- rbind(suicide2001, suicide2002, suicide2003, suicide2004, suicide2005, suicide2006, suicide2007, suicide2008, suicide2009, suicide2010, suicide2011, suicide2012, suicide2013, suicide2014, suicide2015, suicide2016, suicide2017, suicide2018, suicide2019) %>%
+  filter(`State Name` != "** indicates Unstable values, -- indicates Suppressed values, --* indicates Secondary Suppression\n§ County data for years prior to 2008 were mapped to vintage 2008 census definitions where possible. \nRecords without a county name are not able to be mapped, but are included in the tabular data view. Read More at 'https://www.cdc.gov/injury/wisqars/fatal_help/fatal_dataviz.html#county") %>%
+  select(-`State Name`) %>%
+  select(`County Name`, `YPLL Age-Adjusted Rate`, year) %>%
+  rename(county = `County Name`) %>%
+  rename(ypll_age_adjusted_rate = `YPLL Age-Adjusted Rate`)
+
+train_data <- suicide_data %>%
+  inner_join(unemployment, by = c("year", "county")) %>%
+  distinct_all() %>%
+  filter(county != "Nantucket")
+
+library(plotly)
+
+my_graph <- train_data %>%
+  ggplot(aes(x = year, y = ypll_age_adjusted_rate)) +
+  geom_line(aes(color = county)) +
+  geom_smooth() +
+  theme_minimal() +
+  scale_x_continuous("Year", breaks = c(2001, 2005, 2010, 2015, 2019)) +
+  scale_y_continuous("YPLL to Suicide\nAge-Adjusted Rate") +
+  scale_color_discrete("County") +
+  ggtitle("Year vs. Years of Potential Life Lost to Suicide (YPLL)")
+
+ggplotly(my_graph)
+```
+
+
+## Regression Analysis
+
+
+
+## Prediction
+

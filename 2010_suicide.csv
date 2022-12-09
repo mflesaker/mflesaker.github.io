@@ -1,0 +1,18 @@
+State Name,County Name,County FIPS,Population,Deaths,Crude Rate,Age Adjusted Rate,YPLL,YPLL Crude Rate,YPLL Age-Adjusted Rate,appliedFilters
+MA,Barnstable,1,,35,16.21,15.85,558,344.42,373.30,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2010 - 2010, All Ages"
+MA,Berkshire,3,,11****,8.38**,8.19**,230,215.18,229.68,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2010 - 2010, All Ages"
+MA,Bristol,5,,49,8.94,8.33,928,197.30,195.67,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2010 - 2010, All Ages"
+MA,Dukes,7,,--,--,--,.,.,0.00,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2010 - 2010, All Ages"
+MA,Essex,9,,75,10.09,9.79,1576,247.02,260.40,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2010 - 2010, All Ages"
+MA,Franklin,11,,11****,15.41**,15.81**,237,391.73,433.20,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2010 - 2010, All Ages"
+MA,Hampden,13,,50,10.79,10.25,1031,259.13,261.91,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2010 - 2010, All Ages"
+MA,Hampshire,15,,21,13.29,13.01,372,269.48,265.52,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2010 - 2010, All Ages"
+MA,Middlesex,17,,125,8.32,7.89,2653,203.13,198.82,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2010 - 2010, All Ages"
+MA,Nantucket,19,,--,--,--,.,.,184.31,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2010 - 2010, All Ages"
+MA,Norfolk,21,,50,7.45,7.32,1167,203.44,214.93,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2010 - 2010, All Ages"
+MA,Plymouth,23,,53,10.71,10.49,1129,264.97,289.87,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2010 - 2010, All Ages"
+MA,Suffolk,25,,54,7.48,6.87,1245,192.59,155.31,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2010 - 2010, All Ages"
+MA,Worcester,27,,62,7.77,7.97,1471,211.24,225.55,"Suicide All Injury Deaths, Massachusetts state(s), All Races race(s), All Ethnicities Ethincity, All Sexes, Year Range: 2010 - 2010, All Ages"
+"** indicates Unstable values, -- indicates Suppressed values, --* indicates Secondary Suppression
+§ County data for years prior to 2008 were mapped to vintage 2008 census definitions where possible. 
+Records without a county name are not able to be mapped, but are included in the tabular data view. Read More at 'https://www.cdc.gov/injury/wisqars/fatal_help/fatal_dataviz.html#county",,,,,,,,,,
