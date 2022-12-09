@@ -3,4 +3,22 @@ title: "Introduction!"
 layout: default
 ---
 
-This is my project!
+Suicide is a major cause of death in Massachusetts: in 2019, 8.7 individuals per 100,000 died of suicide (CDC, 2022). As such, it is critical to understand what factors lead to suicide deaths and then to predict them by locality, so that public health efforts can best target interventions that reduce this tragic loss. In this project, I aimed to use injury-related data to predict 2020 suicide rates in the state of Massachusetts by county. Covariates in the model included opioid dispensing data, year, county, and unemployment data. 
+
+## Data:
+
+- **Suicide Data:** Web-based Injury Statistics Query and Reporting System (WISQARS™) (CDC, 2005). 
+
+- **Opioid Dispensing Data:** CDC’s “U.S. Opioid Dispensing Rate Maps” for each year from 2006-2019 (CDC, 2021)
+
+- **Unemployment Data:** Massachusetts Department of Economic Research (DER) (Massachusetts DER, 2022)
+
+## References
+
+Centers for Disease Control and Prevention. (2022, June 28). Suicide data and statistics. Centers for Disease Control and Prevention. Retrieved December 7, 2022, from https://www.cdc.gov/suicide/suicide-data-statistics.html 
+
+Centers for Disease Control and Prevention. (2021, November 10). U.S. opioid dispensing rate maps. Retrieved December 7, 2022, from https://www.cdc.gov/drugoverdose/rxrate-maps/index.html
+
+Centers for Disease Control and Prevention, National Center for Injury Prevention and Control (2005). Web-based Injury Statistics Query and Reporting System (WISQARS) [online]. Centers for Disease Control and Prevention. Retrieved November 28, 2022, from www.cdc.gov/injury/wisqars
+
+Massachusetts DER. (2022). Labor Market Information. Mass.gov. Retrieved December 9, 2022, from https://lmi.dua.eol.mass.gov/LMI/LaborForceAndUnemployment 
